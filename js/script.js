@@ -10,7 +10,8 @@ for (var i = 0; i < imgs.length; i++) {
 
 // Shorthand for $( document ).ready()
 $(function() {
-  console.log('hi');
+  var attachFastClick = Origami.fastclick;
+  attachFastClick(document.body);
 
   var $sidebarTrigger = $('.js-sidebar-trigger'),
       $layout = $('#layout');
