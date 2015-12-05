@@ -19,4 +19,8 @@ $(function() {
   $sidebarTrigger.on('click', function() {
     $layout.toggleClass('is-withSidebar');
   });
+
+  $("h2[id]").click(function() {
+    window.location.hash = "#"+$(this).attr("id");
+  });
 });
