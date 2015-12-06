@@ -25,21 +25,23 @@ $(function() {
   });
 
   //SVG
-  var s = Snap('#logo');
+  var s = Snap('#logo-canvas');
   Snap.load("/img/svgomg.svg", function(f) {
     var sChar = f.select('#sChar'),
         gChar = f.select('#gChar'),
+        sCharOver = f.select('#sCharOver'),
         sMatrix = new Snap.Matrix(),
         gMatrix = new Snap.Matrix();
 
-    var duration = 1750,
+    var duration = 750,
+        pause = 200,
     animations = {
       split: function() {
         sMatrix.translate(0,-17);
-        sChar.stop().animate({transform: sMatrix}, duration * .8, mina.easeinout);
+        sChar.stop().animate({transform: sMatrix}, duration * .8, mina.elastic);
 
         gMatrix.translate(0,17);
-        gChar.stop().animate({transform: gMatrix}, duration * .8, mina.easeinout);
+        gChar.stop().animate({transform: gMatrix}, duration * .8, mina.elastic);
       },
       rotate: function() {
         sMatrix.rotate(-90,36,53);
@@ -50,7 +52,11 @@ $(function() {
         gMatrix.rotate(-90,36,19);
         gMatrix.rotate(90,36,36);
         gMatrix.translate(-6,0);
-        gChar.stop().animate({transform: gMatrix}, duration * .8, mina.easeinout);
+        gChar.stop().animate({transform: gMatrix}, duration * .8, mina.easeinout, function() {
+          sCharOver.attr({
+            display: sCharOver.attr('display') === 'none' ? '': 'none'
+          });
+        });
       },
       merge: function() {
         sMatrix.translate(11,0);
@@ -60,13 +66,13 @@ $(function() {
       },
       series: function() {
         setTimeout(animations.split, 0);
-        setTimeout(animations.rotate, duration);
-        setTimeout(animations.merge, duration * 2);
+        setTimeout(animations.rotate, duration + pause);
+        setTimeout(animations.merge, 2 * (duration + pause));
       }
     }
 
     animations.series();
-    setInterval(animations.series, duration * 3);
+    setInterval(animations.series, 3 * (duration + pause));
 
     s.append(f);
   });
