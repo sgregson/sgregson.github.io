@@ -26,7 +26,7 @@ $(function() {
 
   //SVG
   var s = Snap('#logo');
-  Snap.load("../img/svgomg.svg", function(f) {
+  Snap.load("/img/svgomg.svg", function(f) {
     var sChar = f.select('#sChar'),
         gChar = f.select('#gChar'),
         sMatrix = new Snap.Matrix(),
